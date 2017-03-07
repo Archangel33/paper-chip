@@ -1,0 +1,156 @@
+<link rel="import" href="bower_components/polymer/polymer-element.html">
+<link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="bower_components/iron-icons/iron-icons.html">
+
+<link rel="import" href="bower_components/paper-styles/color.html">
+<link rel="import" href="bower_components/paper-styles/typography.html">
+<!--
+A material design [chip](https://www.google.com/design/spec/components/chips.html)
+### Example
+```html
+<paper-chip>Apples</paper-chip>
+```
+### Styling
+The following custom properties and mixins are available for styling:
+Custom property | Description | Default
+----------------|-------------|----------
+`--paper-chip-background` | The background color of the chip | `--paper-grey-300`
+`--paper-chip-background-selectable` | The background color hover of the chip | `--paper-grey-600`
+`--paper-chip-color` | The text color | `--primary-text-color`
+`--paper-chip-color-selectable` | The text color hover of the chip | `white`
+@demo demo/chip.html
+-->
+<dom-module id="paper-chip">
+
+    <template>
+
+        <style is="custom-style">
+            :host {
+                display: inline-flex;
+                flex-direction: row;
+                flex-wrap: nowrap;
+                align-items: center;
+                background-color: var(--paper-chip-background, var(--paper-grey-300));*/
+                height: 32px;
+                border-radius: 32px;
+                color: var(--paper-chip-color, var(--primary-text-color));
+                font-size: 13px!important;
+                @apply --paper-font-body1;
+                margin: 2.5px;
+            }
+            :host([selectable]:hover){
+                color: var(--paper-chip-color-selectable, white);
+                background-color: var(--paper-chip-background-selectable, var(--paper-grey-600));
+                cursor: pointer;
+            }
+            :host(:not([opened])) > ::slotted{
+                display:none
+            }
+            :host([opened]) > ::slotted{
+                display: block;
+            }
+
+            #chipImage{
+                border-radius: 50%;
+                width: 32px;
+                height: 32px;
+            }
+
+            :host > #text{
+                padding: 8px 12px;
+            }
+            :host([removable]) > #text{
+                padding-right: 4px;
+            }
+
+            #icon{
+                vertical-align: middle;
+                --iron-icon-width:24px;
+                --iron-icon-height:24px;
+                opacity: 0.54;
+                padding: 4px;
+                width:32px;
+                height:32px;
+            }
+
+        </style>
+        <img id="chipImage" class="select-trigger" src="{{src}}"></img>
+        <span id="text" class="select-trigger">{{label}}</span>
+        <paper-icon-button id="icon" icon="cancel" class="chip__delete"></paper-icon-button>
+        <slot ></slot>
+
+    </template>
+
+</dom-module>
+
+<script>
+(function() {
+
+    class PaperChip extends Polymer.Element{
+        static get is() { return 'paper-chip' }
+        static get properties() {
+            return {
+                removable:{
+                    type: Boolean,
+                    value: false
+                },
+                selectable:{
+                    type: Boolean,
+                    value: false
+                },
+                opened:{
+                    type: Object,
+                    observer: '_openedChanged',
+                    value: false
+                },
+                src: String,
+                label: String
+            };
+        }
+        constructor(){
+             super();
+        }
+        connectedCallback(){
+            super.connectedCallback();
+
+            if(!this.src){
+                this.$.chipImage.remove();
+            }
+            if(!this.removable){
+                this.$.icon.remove();
+            }
+            var selectTriggers = this.shadowRoot.querySelectorAll(".select-trigger")
+            for(var i = 0; i < selectTriggers.length; i++){
+                selectTriggers[i].addEventListener("click", this._onClick.bind(this));
+            }
+        }
+
+        //observers
+        _openedChanged(opened){
+            console.log("opened: " + opened);
+        }
+
+
+        //private
+        _onClick(e){
+            if(this.selectable){
+                this.toggle();
+            }
+        }
+
+        //public api
+        open(){
+            this.opened = true;
+        }
+        close(){
+            this.opened = false;
+        }
+        toggle(){
+            this.opened = !this.opened;
+        }
+    }
+
+    customElements.define(PaperChip.is, PaperChip);
+
+})();
+</script>

@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+
+  <title>paper-chip demo</title>
+
+  <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" href="paper-chip.html">
+  <link rel="import" href="paper-chip-input.html">
+  <link rel="import" href="paper-chip.html">
+  <style>
+  </style>
+</head>
+
+<body>
+    <div>
+        <h2>paper-chip:</h2>
+        <div> <paper-chip label="my paper chip"></paper-chip></div>
+
+        <div>
+            <h4>Images:</h4>
+            <paper-chip src="./yoda.jpg" label="my paper chip with an img"></paper-chip>
+            <paper-chip src="./yoda.jpg" label="my paper chip with an img" removable></paper-chip>
+        </div>
+        <div>
+            <h4>Removable:</h4>
+            <paper-chip label="removable" removable></paper-chip></div>
+        <div>
+            <h4>Selectable:</h4>
+            <paper-chip label="selectable" selectable><div slot="content"><p>any content to be displayed when selected</p></div></paper-chip>
+            <paper-chip label="also selectable" selectable removable>
+        </div>
+    </div>
+    <div>
+        <h2>paper-chip-input</h2>
+    </div>
+    <div>
+        <h2>paper-chip-area</h2>
+    </div>
+    <div>
+        <h2>paper-chips</h2>
+    </div>
+
+</body>
+</html>
