@@ -1,8 +1,7 @@
-# paper-chip
-<!---
+[![Build Status](https://travis-ci.org/Archangel33/paper-chip.svg?branch=master)](https://travis-ci.org/Archangel33/paper-chip)
+# paper-chip 
 
-[![Build status](https://travis-ci.org/Archangel33/paper-chip.svg?branch=master)](https://travis-ci.org/Archangel33/paper-chip)
-
+<!-- 
 _[Demo and API docs](https://paper-chip/impl)_
 
 -->
